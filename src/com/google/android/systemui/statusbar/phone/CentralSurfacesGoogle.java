@@ -32,6 +32,7 @@ import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.android.app.viewcapture.ViewCaptureAwareWindowManager;
 import com.android.internal.logging.MetricsLogger;
 import com.android.keyguard.KeyguardUpdateMonitor;
 import com.android.keyguard.ViewMediatorCallback;
@@ -51,6 +52,7 @@ import com.android.systemui.dagger.SysUISingleton;
 import com.android.systemui.dagger.qualifiers.Main;
 import com.android.systemui.dagger.qualifiers.UiBackground;
 import com.android.systemui.demomode.DemoModeController;
+import com.android.systemui.emergency.EmergencyGestureModule.EmergencyGestureIntentFactory;
 import com.android.systemui.flags.FeatureFlags;
 import com.android.systemui.fragments.FragmentService;
 import com.android.systemui.keyguard.KeyguardUnlockAnimationController;
@@ -58,7 +60,6 @@ import com.android.systemui.keyguard.KeyguardViewMediator;
 import com.android.systemui.keyguard.ScreenLifecycle;
 import com.android.systemui.keyguard.WakefulnessLifecycle;
 import com.android.systemui.keyguard.ui.viewmodel.LightRevealScrimViewModel;
-import com.android.systemui.model.SysUiState;
 import com.android.systemui.navigationbar.NavigationBarController;
 import com.android.systemui.notetask.NoteTaskController;
 import com.android.systemui.plugins.ActivityStarter;
@@ -68,10 +69,11 @@ import com.android.systemui.plugins.PluginManager;
 import com.android.systemui.power.domain.interactor.PowerInteractor;
 import com.android.systemui.res.R;
 import com.android.systemui.scene.domain.interactor.WindowRootViewVisibilityInteractor;
-import com.android.systemui.scene.shared.flag.SceneContainerFlags;
 import com.android.systemui.settings.UserTracker;
 import com.android.systemui.settings.brightness.BrightnessSliderController;
+import com.android.systemui.settings.brightness.domain.interactor.BrightnessMirrorShowingInteractor;
 import com.android.systemui.shade.CameraLauncher;
+import com.android.systemui.shade.GlanceableHubContainerController;
 import com.android.systemui.shade.NotificationShadeWindowViewController;
 import com.android.systemui.shade.QuickSettingsController;
 import com.android.systemui.shade.ShadeController;
@@ -115,7 +117,6 @@ import com.android.systemui.statusbar.policy.BurnInProtectionController;
 import com.android.systemui.statusbar.policy.ConfigurationController;
 import com.android.systemui.statusbar.policy.DeviceProvisionedController;
 import com.android.systemui.statusbar.policy.ExtensionController;
-import com.android.systemui.statusbar.policy.FlashlightController;
 import com.android.systemui.statusbar.policy.HeadsUpManager;
 import com.android.systemui.statusbar.policy.KeyguardStateController;
 import com.android.systemui.statusbar.policy.UserInfoControllerImpl;
@@ -197,7 +198,7 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
             @UiBackground Executor uiBgExecutor,
             ShadeSurface shadeSurface,
             NotificationMediaManager notificationMediaManager,
-            NotificationLockscreenUserManagerGoogle notificationLockscreenUserManagerGoogle,
+            NotificationLockscreenUserManagerGoogle lockScreenUserManager,
             NotificationRemoteInputManager remoteInputManager,
             QuickSettingsController quickSettingsController,
             BatteryController batteryController,
@@ -213,7 +214,6 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
             NavigationBarController navigationBarController,
             AccessibilityFloatingMenuController accessibilityFloatingMenuController,
             Lazy<AssistManager> assistManagerLazy,
-            FlashlightController flashlightController,
             ConfigurationController configurationController,
             NotificationShadeWindowController notificationShadeWindowController,
             Lazy<NotificationShadeWindowViewController> notificationShadeWindowViewControllerLazy,
@@ -244,7 +244,7 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
             ExtensionController extensionController,
             UserInfoControllerImpl userInfoControllerImpl,
             PhoneStatusBarPolicy phoneStatusBarPolicy,
-            KeyguardIndicationControllerGoogle keyguardIndicationControllerGoogle,
+            KeyguardIndicationControllerGoogle keyguardIndicationController,
             DemoModeController demoModeController,
             Lazy<NotificationShadeDepthController> notificationShadeDepthControllerLazy,
             StatusBarTouchableRegionManager statusBarTouchableRegionManager,
@@ -271,11 +271,12 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
             UserTracker userTracker,
             Provider<FingerprintManager> fingerprintManager,
             ActivityStarter activityStarter,
-            SceneContainerFlags sceneContainerFlags,
-            TunerService tunerService,
-            @Main Handler refreshNavbarHandler,
+            BrightnessMirrorShowingInteractor brightnessMirrorShowingInteractor,
+            GlanceableHubContainerController glanceableHubContainerController,
+            EmergencyGestureIntentFactory emergencyGestureIntentFactory,
+            ViewCaptureAwareWindowManager viewCaptureAwareWindowManager,
             BurnInProtectionController burnInProtectionController,
-            SysUiState sysUiState,
+            TunerService tunerService,
             Optional<ReverseChargingViewController> reverseChargingViewControllerOptional,
             WallpaperNotifier wallpaperNotifier,
             SmartSpaceController smartSpaceController,
@@ -310,7 +311,7 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
                 uiBgExecutor,
                 shadeSurface,
                 notificationMediaManager,
-                notificationLockscreenUserManagerGoogle,
+                lockScreenUserManager,
                 remoteInputManager,
                 quickSettingsController,
                 batteryController,
@@ -326,7 +327,6 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
                 navigationBarController,
                 accessibilityFloatingMenuController,
                 assistManagerLazy,
-                flashlightController,
                 configurationController,
                 notificationShadeWindowController,
                 notificationShadeWindowViewControllerLazy,
@@ -356,7 +356,7 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
                 extensionController,
                 userInfoControllerImpl,
                 phoneStatusBarPolicy,
-                keyguardIndicationControllerGoogle,
+                keyguardIndicationController,
                 demoModeController,
                 notificationShadeDepthControllerLazy,
                 statusBarTouchableRegionManager,
@@ -383,11 +383,12 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
                 userTracker,
                 fingerprintManager,
                 activityStarter,
-                sceneContainerFlags,
-                tunerService,
-                refreshNavbarHandler,
+                brightnessMirrorShowingInteractor,
+                glanceableHubContainerController,
+                emergencyGestureIntentFactory,
+                viewCaptureAwareWindowManager,
                 burnInProtectionController,
-                sysUiState);
+                tunerService);
         mContext = context;
         mBatteryStateChangeCallback =
                 new BatteryController.BatteryStateChangeCallback() {
@@ -452,11 +453,11 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
                     }
                 };
         mReverseChargingViewControllerOptional = reverseChargingViewControllerOptional;
-        mKeyguardIndicationController = keyguardIndicationControllerGoogle;
+        mKeyguardIndicationController = keyguardIndicationController;
         mStatusBarStateController = statusBarStateController;
         mWallpaperNotifier = wallpaperNotifier;
         mSmartSpaceController = smartSpaceController;
-        mNotificationLockscreenUserManagerGoogle = notificationLockscreenUserManagerGoogle;
+        mNotificationLockscreenUserManagerGoogle = lockScreenUserManager;
         mDockObserver = dockObserver;
     }
 

@@ -20,7 +20,6 @@ package com.google.android.systemui.dagger
 
 import com.android.systemui.SystemUIAppComponentFactoryBase
 import com.android.systemui.dagger.*
-import com.android.systemui.globalactions.ShutdownUiModule
 import com.android.systemui.keyguard.CustomizationProvider
 import com.android.systemui.keyguard.KeyguardSliceProvider
 import com.android.systemui.people.PeopleProvider
@@ -38,7 +37,6 @@ import dagger.Subcomponent
             DependencyProvider::class,
             NotificationInsetsModule::class,
             QsFrameTranslateModule::class,
-            ShutdownUiModule::class,
             SystemUIGoogleBinder::class,
             SystemUIModule::class,
             SystemUIGoogleCoreStartableModule::class,

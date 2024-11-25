@@ -45,6 +45,9 @@ import com.android.systemui.broadcast.BroadcastDispatcher;
 import com.android.systemui.dagger.SysUISingleton;
 import com.android.systemui.dagger.qualifiers.Background;
 import com.android.systemui.dagger.qualifiers.Main;
+import com.android.systemui.deviceentry.domain.interactor.BiometricMessageInteractor;
+import com.android.systemui.deviceentry.domain.interactor.DeviceEntryFaceAuthInteractor;
+import com.android.systemui.deviceentry.domain.interactor.DeviceEntryFingerprintAuthInteractor;
 import com.android.systemui.dock.DockManager;
 import com.android.systemui.flags.FeatureFlags;
 import com.android.systemui.keyguard.KeyguardIndication;
@@ -139,7 +142,10 @@ public class KeyguardIndicationControllerGoogle extends KeyguardIndicationContro
             BouncerMessageInteractor bouncerMessageInteractor,
             FeatureFlags featureFlags,
             IndicationHelper indicationHelper,
-            KeyguardInteractor keyguardInteractor) {
+            KeyguardInteractor keyguardInteractor,
+            BiometricMessageInteractor biometricMessageInteractor,
+            DeviceEntryFingerprintAuthInteractor deviceEntryFingerprintAuthInteractor,
+            DeviceEntryFaceAuthInteractor deviceEntryFaceAuthInteractor) {
         super(
                 context,
                 mainLooper,
@@ -168,7 +174,10 @@ public class KeyguardIndicationControllerGoogle extends KeyguardIndicationContro
                 bouncerMessageInteractor,
                 featureFlags,
                 indicationHelper,
-                keyguardInteractor);
+                keyguardInteractor,
+                biometricMessageInteractor,
+                deviceEntryFingerprintAuthInteractor,
+                deviceEntryFaceAuthInteractor);
         mBroadcastReceiver =
                 new BroadcastReceiver() {
                     @Override
