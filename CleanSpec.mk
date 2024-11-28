@@ -45,11 +45,7 @@
 #$(call add-clean-step, rm -rf $(PRODUCT_OUT)/data/*)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/system_ext/priv-app/SystemUIGoogle)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system_ext/priv-app/SystemUIGoogle)
-$(call add-clean-step, rm -rf $(OUT_DIR)/target/common/obj/APPS/SettingsGoogle_intermediates)
-$(call add-clean-step, rm -rf $(OUT_DIR)/target/common/obj/APPS/SettingsGoogle_intermediates)
-$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system_ext/priv-app/SettingsGoogle)
-$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/system_ext/priv-app/SettingsGoogle)
-$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system_ext/priv-app/SettingsGoogle)
+$(call add-clean-step, rm -rf $(OUT_DIR)/target/common/obj/APPS/SystemUIGoogle_intermediates)
 # ******************************************************************
 # NEWER CLEAN STEPS MUST BE AT THE END OF THE LIST ABOVE THIS BANNER
 # ******************************************************************

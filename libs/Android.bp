@@ -1,0 +1,29 @@
+java_import {
+    name: "columbus-lib",
+    sdk_version: "current",
+    jars: ["columbus-lib.jar"],
+}
+
+java_import {
+    name: "googlebattery-lib",
+    sdk_version: "current",
+    jars: ["googlebattery-lib.jar"],
+}
+
+java_import {
+    name: "matchmaker-lib",
+    sdk_version: "current",
+    jars: ["matchmaker-lib.jar"],
+}
+
+java_import {
+    name: "nga-lib",
+    sdk_version: "current",
+    jars: ["nga-lib.jar"],
+}
+
+java_import {
+    name: "touchcontext-lib",
+    sdk_version: "current",
+    jars: ["touchcontext-lib.jar"],
+}
