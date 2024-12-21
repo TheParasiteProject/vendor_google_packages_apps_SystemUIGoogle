@@ -52,6 +52,7 @@ public class BcSmartspaceView extends FrameLayout
     public final CardPagerAdapter mAdapter;
     public boolean mAnimateSmartspaceUpdate;
     public final ContentObserver mAodObserver;
+    public Handler mBgHandler;
     public int mCardPosition;
     public BcSmartspaceDataPlugin mDataProvider;
     public boolean mIsAodEnabled;
@@ -221,6 +222,10 @@ public class BcSmartspaceView extends FrameLayout
         this.mDataProvider = plugin;
         plugin.registerListener(this);
         this.mAdapter.setDataProvider(this.mDataProvider);
+    }
+
+    public void setBgHandler(Handler handler) {
+        this.mBgHandler = handler;
     }
 
     public void onSmartspaceTargetsUpdated(List<? extends Parcelable> list) {
