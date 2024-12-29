@@ -106,7 +106,6 @@ import com.android.systemui.statusbar.phone.DozeScrimController;
 import com.android.systemui.statusbar.phone.DozeServiceHost;
 import com.android.systemui.statusbar.phone.KeyguardBypassController;
 import com.android.systemui.statusbar.phone.LightBarController;
-import com.android.systemui.statusbar.phone.NotificationIconAreaController;
 import com.android.systemui.statusbar.phone.PhoneStatusBarPolicy;
 import com.android.systemui.statusbar.phone.StatusBarHideIconsForBouncerManager;
 import com.android.systemui.statusbar.phone.StatusBarKeyguardViewManager;
@@ -248,7 +247,6 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
             DemoModeController demoModeController,
             Lazy<NotificationShadeDepthController> notificationShadeDepthControllerLazy,
             StatusBarTouchableRegionManager statusBarTouchableRegionManager,
-            NotificationIconAreaController notificationIconAreaController,
             BrightnessSliderController.Factory brightnessSliderFactory,
             ScreenOffAnimationController screenOffAnimationController,
             WallpaperController wallpaperController,
@@ -360,7 +358,6 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
                 demoModeController,
                 notificationShadeDepthControllerLazy,
                 statusBarTouchableRegionManager,
-                notificationIconAreaController,
                 brightnessSliderFactory,
                 screenOffAnimationController,
                 wallpaperController,

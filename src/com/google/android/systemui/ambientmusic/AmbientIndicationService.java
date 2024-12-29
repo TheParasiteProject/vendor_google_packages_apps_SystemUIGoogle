@@ -29,6 +29,7 @@ import android.util.Log;
 import com.android.keyguard.KeyguardUpdateMonitor;
 import com.android.keyguard.KeyguardUpdateMonitorCallback;
 import com.android.systemui.Dependency;
+import com.android.systemui.user.domain.interactor.SelectedUserInteractor;
 
 public final class AmbientIndicationService extends BroadcastReceiver {
     public AlarmManager mAlarmManager;
@@ -46,17 +47,21 @@ public final class AmbientIndicationService extends BroadcastReceiver {
             new AlarmManager.OnAlarmListener() {
                 @Override
                 public final void onAlarm() {
-                    mAmbientIndicationContainer.setAmbientMusic(null, null, null, 0, false, null);
+                    mAmbientIndicationContainer.setAmbientMusic(null, null, null, false, 0, null);
                 }
             };
+
+    private final SelectedUserInteractor mSelectedUserInteractor;
 
     public AmbientIndicationService(
             Context context,
             AmbientIndicationContainer ambientIndicationContainer,
+            SelectedUserInteractor selectedUserInteractor,
             AlarmManager alarmManager) {
         mContext = context;
         mAmbientIndicationContainer = ambientIndicationContainer;
         mAlarmManager = alarmManager;
+        mSelectedUserInteractor = selectedUserInteractor;
         start();
     }
 
@@ -123,15 +128,16 @@ public final class AmbientIndicationService extends BroadcastReceiver {
                                 "com.google.android.ambientindication.extra.ICON_DESCRIPTION");
                 mAmbientIndicationContainer.setAmbientMusic(
                         intent.getCharSequenceExtra(
-                                "com.google.android.ambientindication.extra.TEXT"),
+                                        "com.google.android.ambientindication.extra.TEXT")
+                                .toString(),
                         (PendingIntent)
                                 intent.getParcelableExtra(
                                         "com.google.android.ambientindication.extra.OPEN_INTENT"),
                         (PendingIntent)
                                 intent.getParcelableExtra(
                                         "com.google.android.ambientindication.extra.FAVORITING_INTENT"),
-                        intExtra2,
                         booleanExtra,
+                        intExtra2,
                         stringExtra);
                 mAlarmManager.setExact(
                         2,
@@ -145,7 +151,7 @@ public final class AmbientIndicationService extends BroadcastReceiver {
             return;
         }
         mAlarmManager.cancel(mHideIndicationListener);
-        mAmbientIndicationContainer.setAmbientMusic(null, null, null, 0, false, null);
+        mAmbientIndicationContainer.setAmbientMusic(null, null, null, false, 0, null);
         Log.i("AmbientIndication", "Hiding ambient indication.");
     }
 
@@ -154,7 +160,7 @@ public final class AmbientIndicationService extends BroadcastReceiver {
     }
 
     int getCurrentUser() {
-        return KeyguardUpdateMonitor.getCurrentUser();
+        return mSelectedUserInteractor.getSelectedUserId();
     }
 
     void onUserSwitched() {

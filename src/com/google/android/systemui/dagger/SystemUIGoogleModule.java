@@ -26,7 +26,9 @@ import com.android.keyguard.KeyguardViewController;
 import com.android.systemui.ScreenDecorationsModule;
 import com.android.systemui.SystemUIAppComponentFactoryBase;
 import com.android.systemui.SystemUIInitializer;
+import com.android.systemui.accessibility.AccessibilityModule;
 import com.android.systemui.accessibility.SystemActionsModule;
+import com.android.systemui.accessibility.data.repository.AccessibilityRepositoryModule;
 import com.android.systemui.assist.AssistManager;
 import com.android.systemui.controls.controller.ControlsTileResourceConfiguration;
 import com.android.systemui.dagger.GlobalRootComponent;
@@ -53,6 +55,7 @@ import com.android.systemui.rotationlock.RotationLockNewModule;
 import com.android.systemui.scene.SceneContainerFrameworkModule;
 import com.android.systemui.screenshot.ReferenceScreenshotModule;
 import com.android.systemui.settings.MultiUserUtilsModule;
+import com.android.systemui.settings.UserTracker;
 import com.android.systemui.shade.NotificationShadeWindowControllerImpl;
 import com.android.systemui.shade.ShadeModule;
 import com.android.systemui.statusbar.CommandQueue;
@@ -104,6 +107,8 @@ import javax.inject.Named;
 
 @Module(
         includes = {
+            AccessibilityModule.class,
+            AccessibilityRepositoryModule.class,
             CollapsedStatusBarFragmentStartableModule.class,
             ConnectingDisplayViewModel.StartableModule.class,
             GestureModule.class,
@@ -182,9 +187,9 @@ public abstract class SystemUIGoogleModule {
     @Provides
     @SysUISingleton
     static IndividualSensorPrivacyController provideIndividualSensorPrivacyController(
-            SensorPrivacyManager sensorPrivacyManager) {
+            SensorPrivacyManager sensorPrivacyManager, UserTracker userTracker) {
         IndividualSensorPrivacyController spC =
-                new IndividualSensorPrivacyControllerImpl(sensorPrivacyManager);
+                new IndividualSensorPrivacyControllerImpl(sensorPrivacyManager, userTracker);
         spC.init();
         return spC;
     }
