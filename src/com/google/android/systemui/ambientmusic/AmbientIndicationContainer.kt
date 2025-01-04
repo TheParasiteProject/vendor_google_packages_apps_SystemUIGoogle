@@ -107,7 +107,7 @@ class AmbientIndicationContainer(private val context: Context, attrs: AttributeS
             textView.setOnClickListener { _ -> onTextClick() }
             iconView.setOnClickListener { _ -> onIconClick() }
         }
-        addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> updateBottomSpacing() }
+        addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> updateSpacing() }
     }
 
     override fun onAttachedToWindow() {
@@ -301,15 +301,24 @@ class AmbientIndicationContainer(private val context: Context, attrs: AttributeS
         } else {
             handler.post(wakeLock.wrap({}))
         }
-        updateBottomSpacing()
+        updateSpacing()
     }
 
-    private fun updateBottomSpacing() {
+    private fun updateHorizontalSpacing() {
+        val screenWidth = resources.displayMetrics.widthPixels
+        val centerX = screenWidth / 2
+        val totalWidth = textView.width + iconView.width
+        val marginStart = centerX - totalWidth / 2
+        (layoutParams as FrameLayout.LayoutParams).apply { this.marginStart = marginStart }
+    }
+
+    private fun updateSpacing() {
         val marginBottom = resources.getDimensionPixelSize(R.dimen.ambient_indication_margin_bottom)
         if (bottomMarginPx != marginBottom) {
             bottomMarginPx = marginBottom
             (layoutParams as FrameLayout.LayoutParams).bottomMargin = bottomMarginPx
         }
+        updateHorizontalSpacing()
         shadeViewController.setAmbientIndicationTop(top, textView.visibility == View.VISIBLE)
     }
 
