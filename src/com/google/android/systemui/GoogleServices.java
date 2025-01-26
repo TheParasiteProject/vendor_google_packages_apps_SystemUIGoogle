@@ -11,8 +11,6 @@ import com.android.systemui.util.wakelock.DelayedWakeLock;
 
 import com.google.android.systemui.ambientmusic.AmbientIndicationContainer;
 import com.google.android.systemui.ambientmusic.AmbientIndicationService;
-import com.google.android.systemui.columbus.ColumbusContext;
-import com.google.android.systemui.columbus.ColumbusServiceWrapper;
 import com.google.android.systemui.input.TouchContextService;
 
 import dagger.Lazy;
@@ -27,7 +25,6 @@ public class GoogleServices extends VendorServices {
     private final CentralSurfaces mCentralSurfaces;
     private final AlarmManager mAlarmManager;
     private final QsEventLogger mUiEventLogger;
-    private final Lazy<ColumbusServiceWrapper> mColumbusServiceLazy;
     private final DelayedWakeLock.Factory mDelayedWakeLockFactory;
 
     @Inject
@@ -36,7 +33,6 @@ public class GoogleServices extends VendorServices {
             AlarmManager alarmManager,
             CentralSurfaces centralSurfaces,
             QsEventLogger uiEventLogger,
-            Lazy<ColumbusServiceWrapper> columbusServiceWrapperLazy,
             DelayedWakeLock.Factory delayedWakeLockFactory) {
         super();
         mContext = context;
@@ -44,15 +40,11 @@ public class GoogleServices extends VendorServices {
         mAlarmManager = alarmManager;
         mCentralSurfaces = centralSurfaces;
         mUiEventLogger = uiEventLogger;
-        mColumbusServiceLazy = columbusServiceWrapperLazy;
         mDelayedWakeLockFactory = delayedWakeLockFactory;
     }
 
     @Override
     public void start() {
-        if (new ColumbusContext(mContext).isAvailable()) {
-            addService(mColumbusServiceLazy.get());
-        }
         if (mContext.getResources().getBoolean(R.bool.config_touch_context_enabled)) {
             addService(new TouchContextService(mContext));
         }

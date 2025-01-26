@@ -79,7 +79,6 @@ import com.google.android.systemui.SystemUIGoogleAppComponentFactory;
 import com.google.android.systemui.SystemUIGoogleInitializer;
 import com.google.android.systemui.assist.AssistManagerGoogle;
 import com.google.android.systemui.assist.dagger.AssistModule;
-import com.google.android.systemui.columbus.dagger.ColumbusModule;
 import com.google.android.systemui.controls.GoogleControlsTileResourceConfigurationImpl;
 import com.google.android.systemui.dreamliner.DockObserver;
 import com.google.android.systemui.dreamliner.dagger.DreamlinerModule;
@@ -135,7 +134,6 @@ import javax.inject.Named;
             DreamlinerModule.class,
             ReverseChargingModule.class,
             AssistModule.class,
-            ColumbusModule.class,
             SystemUIGooglePolicyModule.class
         })
 public abstract class SystemUIGoogleModule {

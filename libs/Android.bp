@@ -1,10 +1,4 @@
 java_import {
-    name: "columbus-lib",
-    sdk_version: "current",
-    jars: ["columbus-lib.jar"],
-}
-
-java_import {
     name: "googlebattery-lib",
     sdk_version: "current",
     jars: ["googlebattery-lib.jar"],
