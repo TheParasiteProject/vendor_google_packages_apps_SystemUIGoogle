@@ -72,3 +72,12 @@ android_app {
         "privapp_whitelist_com.android.systemui",
     ],
 }
+
+java_library {
+    name: "googlebattery-lib",
+    srcs: ["src/com/google/android/systemui/googlebattery/*.java"],
+    static_libs: [
+        "vendor.google.google_battery-hidl-java",
+        "vendor.google.google_battery-V1-java",
+    ],
+}

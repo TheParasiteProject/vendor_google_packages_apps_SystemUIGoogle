@@ -1,7 +1,7 @@
 java_import {
-    name: "googlebattery-lib",
+    name: "vendor.google.google_battery-hidl-java",
     sdk_version: "current",
-    jars: ["googlebattery-lib.jar"],
+    jars: ["vendor.google.google_battery-hidl.jar"],
 }
 
 java_import {
