@@ -5,19 +5,7 @@ java_import {
 }
 
 java_import {
-    name: "matchmaker-lib",
+    name: "SystemUIGoogle-lib",
     sdk_version: "current",
-    jars: ["matchmaker-lib.jar"],
-}
-
-java_import {
-    name: "nga-lib",
-    sdk_version: "current",
-    jars: ["nga-lib.jar"],
-}
-
-java_import {
-    name: "touchcontext-lib",
-    sdk_version: "current",
-    jars: ["touchcontext-lib.jar"],
+    jars: ["*.jar"],
 }

@@ -15,12 +15,8 @@ android_library {
         "vendor-pixelatoms-java",
         "smartspace-proto-java",
         "guava",
-        "matchmaker-lib",
-        "touchcontext-lib",
+        "SystemUIGoogle-lib",
         "googlebattery-lib",
-        "nga-lib",
-        "google-battery",
-        "vendor.google.google_battery-V1-java",
         "androidx.concurrent_concurrent-futures-ktx",
     ],
     libs: [
