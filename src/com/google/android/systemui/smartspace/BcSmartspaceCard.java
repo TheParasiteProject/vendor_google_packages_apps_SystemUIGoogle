@@ -377,7 +377,7 @@ public class BcSmartspaceCard extends ConstraintLayout {
                 "BcSmartspaceCard",
                 String.format(
                         "setFormattedContentDescription: textView=%s, text=%s, iconDescription=%s,"
-                            + " contentDescription=%s",
+                                + " contentDescription=%s",
                         objArr));
         textView.setContentDescription(string);
     }

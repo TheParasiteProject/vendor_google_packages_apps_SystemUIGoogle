@@ -75,9 +75,8 @@ public class SubImageTemplateCard extends BcSmartspaceCardSecondary {
                                 ImageDecoder.decodeDrawable(
                                         ImageDecoder.createSource(
                                                 (Resources) null, openInputStream),
-                                        new ImageDecoder
-                                                .OnHeaderDecodedListener() { // from class:
-                                                                             // com.google.android.systemui.smartspace.uitemplate.SubImageTemplateCard$$ExternalSyntheticLambda2
+                                        new ImageDecoder.OnHeaderDecodedListener() { // from class:
+                                            // com.google.android.systemui.smartspace.uitemplate.SubImageTemplateCard$$ExternalSyntheticLambda2
                                             @Override // android.graphics.ImageDecoder.OnHeaderDecodedListener
                                             public final void onHeaderDecoded(
                                                     ImageDecoder imageDecoder,
@@ -260,7 +259,7 @@ public class SubImageTemplateCard extends BcSmartspaceCardSecondary {
                                         Log.d(
                                                 "SubImageTemplateCard",
                                                 "SmartspaceTarget has changed. Skip the loaded"
-                                                    + " result...");
+                                                        + " result...");
                                         return;
                                     }
                                     subImageTemplateCard.mIconDrawableCache.put(str4, drawable);
@@ -291,7 +290,7 @@ public class SubImageTemplateCard extends BcSmartspaceCardSecondary {
                                             Log.w(
                                                     "SubImageTemplateCard",
                                                     "All images are failed to load. Reset"
-                                                        + " imageView");
+                                                            + " imageView");
                                             ImageView imageView = subImageTemplateCard.mImageView;
                                             if (imageView != null) {
                                                 imageView.getLayoutParams().width = -2;

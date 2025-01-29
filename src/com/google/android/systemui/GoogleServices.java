@@ -13,8 +13,6 @@ import com.google.android.systemui.ambientmusic.AmbientIndicationContainer;
 import com.google.android.systemui.ambientmusic.AmbientIndicationService;
 import com.google.android.systemui.input.TouchContextService;
 
-import dagger.Lazy;
-
 import java.util.ArrayList;
 
 import javax.inject.Inject;

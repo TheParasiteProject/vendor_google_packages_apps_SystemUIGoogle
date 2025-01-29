@@ -73,7 +73,7 @@ public final class BcSmartSpaceUtil {
                                     Log.w(
                                             str,
                                             "Cannot notify target interaction smartspace event:"
-                                                + " event notifier null.");
+                                                    + " event notifier null.");
                                 } else {
                                     smartspaceEventNotifier.notifySmartspaceEvent(
                                             new SmartspaceTargetEvent.Builder(1)
@@ -134,7 +134,7 @@ public final class BcSmartSpaceUtil {
                                     Log.w(
                                             str,
                                             "Cannot notify target interaction smartspace event:"
-                                                + " event notifier null.");
+                                                    + " event notifier null.");
                                 } else {
                                     smartspaceEventNotifier.notifySmartspaceEvent(
                                             new SmartspaceTargetEvent.Builder(1)

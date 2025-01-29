@@ -60,7 +60,7 @@ public class BcSmartspaceCardDoorbell extends BcSmartspaceCardGenericImage {
     }
 
     @Override // com.google.android.systemui.smartspace.BcSmartspaceCardGenericImage,
-              // com.google.android.systemui.smartspace.BcSmartspaceCardSecondary
+    // com.google.android.systemui.smartspace.BcSmartspaceCardSecondary
     public final boolean setSmartspaceActions(
             SmartspaceTarget smartspaceTarget,
             BcSmartspaceDataPlugin.SmartspaceEventNotifier smartspaceEventNotifier,
@@ -297,7 +297,7 @@ public class BcSmartspaceCardDoorbell extends BcSmartspaceCardGenericImage {
     }
 
     @Override // com.google.android.systemui.smartspace.BcSmartspaceCardGenericImage,
-              // com.google.android.systemui.smartspace.BcSmartspaceCardSecondary
+    // com.google.android.systemui.smartspace.BcSmartspaceCardSecondary
     public final void resetUi() {
         super.resetUi();
         BcSmartspaceTemplateDataUtils.updateVisibility(this.mImageView, 8);

@@ -42,7 +42,9 @@ import dagger.Subcomponent
             SystemUIGoogleBinder::class,
             SystemUIModule::class,
             SystemUIGoogleCoreStartableModule::class,
-            SystemUIGoogleModule::class])
+            SystemUIGoogleModule::class,
+        ]
+)
 interface SysUIGoogleSysUIComponent : SysUIComponent {
     /** Builder for a SysUIComponent. */
     @Subcomponent.Builder

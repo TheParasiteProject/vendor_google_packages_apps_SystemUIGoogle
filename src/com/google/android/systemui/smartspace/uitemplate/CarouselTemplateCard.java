@@ -119,7 +119,7 @@ public class CarouselTemplateCard extends BcSmartspaceCardSecondary {
                             carouselItems.stream()
                                     .filter(
                                             new Predicate() { // from class:
-                                                              // com.google.android.systemui.smartspace.uitemplate.CarouselTemplateCard$$ExternalSyntheticLambda0
+                                                // com.google.android.systemui.smartspace.uitemplate.CarouselTemplateCard$$ExternalSyntheticLambda0
                                                 @Override // java.util.function.Predicate
                                                 public final boolean test(Object obj) {
                                                     boolean z;

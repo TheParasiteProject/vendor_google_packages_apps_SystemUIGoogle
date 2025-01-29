@@ -61,7 +61,8 @@ class EnhancedEstimatesGoogleImpl @Inject constructor(private val mContext: Cont
                     null,
                     null,
                     null,
-                    null)
+                    null,
+                )
             if (query != null && query.moveToFirst()) {
                 val isBasedOnUsage =
                     query.getColumnIndex("is_based_on_usage") == -1 ||
@@ -86,7 +87,10 @@ class EnhancedEstimatesGoogleImpl @Inject constructor(private val mContext: Cont
                     }
                 val estimate =
                     Estimate(
-                        query.getLong(query.getColumnIndex("battery_estimate")), isBasedOnUsage, j)
+                        query.getLong(query.getColumnIndex("battery_estimate")),
+                        isBasedOnUsage,
+                        j,
+                    )
                 Estimate.storeCachedEstimate(mContext, estimate)
                 estimate
             } else {
@@ -94,7 +98,10 @@ class EnhancedEstimatesGoogleImpl @Inject constructor(private val mContext: Cont
             }
         } catch (e: Exception) {
             Log.d(
-                "EnhancedEstimates", "Something went wrong when getting an estimate from Turbo", e)
+                "EnhancedEstimates",
+                "Something went wrong when getting an estimate from Turbo",
+                e,
+            )
             Estimate(-1L, false, -1L)
         } finally {
             query?.close()
@@ -120,7 +127,10 @@ class EnhancedEstimatesGoogleImpl @Inject constructor(private val mContext: Cont
         return try {
             mParser.setString(
                 Settings.Global.getString(
-                    mContext.contentResolver, "hybrid_sysui_battery_warning_flags"))
+                    mContext.contentResolver,
+                    "hybrid_sysui_battery_warning_flags",
+                )
+            )
             true
         } catch (e: IllegalArgumentException) {
             Log.e("EnhancedEstimates", "Bad hybrid sysui warning flags")

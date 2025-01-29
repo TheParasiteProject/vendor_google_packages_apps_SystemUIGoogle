@@ -150,7 +150,7 @@ public class CardPagerAdapter extends PagerAdapter {
                 && IntStream.range(0, list.size())
                         .allMatch(
                                 new IntPredicate() { // from class:
-                                                     // com.google.android.systemui.smartspace.CardPagerAdapter.1
+                                    // com.google.android.systemui.smartspace.CardPagerAdapter.1
                                     @Override // java.util.function.IntPredicate
                                     public boolean test(int i) {
                                         return CardPagerAdapter.useRecycledViewForAction(
@@ -817,7 +817,7 @@ public class CardPagerAdapter extends PagerAdapter {
                             "BcSmartspaceCard",
                             String.format(
                                     "Subcard expected but missing type. loggingInfo=%s,"
-                                        + " baseAction=%s",
+                                            + " baseAction=%s",
                                     bcSmartspaceCardLoggingInfo2, baseAction));
                     i3 = 0;
                 }

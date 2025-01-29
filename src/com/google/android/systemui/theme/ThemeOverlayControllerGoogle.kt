@@ -69,7 +69,7 @@ constructor(
     activityManager: ActivityManager,
     configurationController: ConfigurationController,
     @param:Main private val mainResources: Resources,
-    private val systemPropertiesHelper: SystemPropertiesHelper
+    private val systemPropertiesHelper: SystemPropertiesHelper,
 ) :
     ThemeOverlayController(
         context,
@@ -91,14 +91,16 @@ constructor(
         keyguardTransitionInteractor,
         uiModeManager,
         activityManager,
-        configurationController) {
+        configurationController,
+    ) {
     init {
         configurationController.addCallback(
             object : ConfigurationController.ConfigurationListener {
                 override fun onThemeChanged() {
                     setBootColorSystemProps()
                 }
-            })
+            }
+        )
 
         val bootColors = getBootColors()
         for (i in bootColors.indices) {
@@ -113,12 +115,14 @@ constructor(
                 systemPropertiesHelper.set("persist.bootanim.color${i + 1}", bootColors[i])
                 Log.d(
                     "ThemeOverlayController",
-                    "Writing boot animation colors ${i + 1}: ${bootColors[i]}")
+                    "Writing boot animation colors ${i + 1}: ${bootColors[i]}",
+                )
             }
         } catch (e: RuntimeException) {
             Log.w(
                 "ThemeOverlayController",
-                "Cannot set sysprop. Look for 'init' and 'dmesg' logs for more info.")
+                "Cannot set sysprop. Look for 'init' and 'dmesg' logs for more info.",
+            )
         }
     }
 
@@ -127,6 +131,7 @@ constructor(
             mainResources.getColor(android.R.color.system_accent3_100),
             mainResources.getColor(android.R.color.system_accent1_300),
             mainResources.getColor(android.R.color.system_accent2_500),
-            mainResources.getColor(android.R.color.system_accent1_100))
+            mainResources.getColor(android.R.color.system_accent1_100),
+        )
     }
 }

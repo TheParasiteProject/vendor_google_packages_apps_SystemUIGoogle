@@ -10,9 +10,8 @@ import javax.inject.Inject
 @SysUISingleton
 class GoogleControlsTileResourceConfigurationImpl
 @Inject
-constructor(
-    private val controlsController: ControlsController,
-) : ControlsTileResourceConfiguration {
+constructor(private val controlsController: ControlsController) :
+    ControlsTileResourceConfiguration {
 
     val componentName: ComponentName
         get() = controlsController.getPreferredSelection().componentName

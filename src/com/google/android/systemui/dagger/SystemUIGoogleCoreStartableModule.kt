@@ -80,7 +80,8 @@ import dagger.multibindings.IntoMap
             StartControlsStartableModule::class,
             StartBinderLoggerModule::class,
             WallpaperModule::class,
-        ])
+        ]
+)
 abstract class SystemUIGoogleCoreStartableModule {
     /** Inject into BiometricNotificationService */
     @Binds

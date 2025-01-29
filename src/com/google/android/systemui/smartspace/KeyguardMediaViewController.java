@@ -1,6 +1,5 @@
 package com.google.android.systemui.smartspace;
 
-
 import android.app.smartspace.SmartspaceAction;
 import android.app.smartspace.SmartspaceTarget;
 import android.content.ComponentName;

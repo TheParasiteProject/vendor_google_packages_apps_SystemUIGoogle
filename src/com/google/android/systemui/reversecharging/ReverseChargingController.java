@@ -440,7 +440,7 @@ public class ReverseChargingController extends BroadcastReceiver
             Log.d(
                     "ReverseChargingControl",
                     "handleIntentForReverseCharging(): stop reverse charging because USB-C"
-                        + " plugin!");
+                            + " plugin!");
         } else if (!TextUtils.equals(action, "android.hardware.usb.action.USB_DEVICE_DETACHED")) {
         } else {
             if (mDoesNfcConflictWithUsbAudio
@@ -609,7 +609,7 @@ public class ReverseChargingController extends BroadcastReceiver
                             Log.d(
                                     "ReverseChargingControl",
                                     "requestReverseInformation(): mRtxChargerManagerOptional is not"
-                                        + " present!");
+                                            + " present!");
                         }
                     }
                 });
@@ -800,7 +800,7 @@ public class ReverseChargingController extends BroadcastReceiver
                                     Log.d(
                                             "ReverseChargingControl",
                                             "onReverseStateChangedOnMainThread(): time out,"
-                                                + " setRtxTimer, duration="
+                                                    + " setRtxTimer, duration="
                                                     + rtxTimeOut);
                                 }
                                 if (mStartReconnected) {

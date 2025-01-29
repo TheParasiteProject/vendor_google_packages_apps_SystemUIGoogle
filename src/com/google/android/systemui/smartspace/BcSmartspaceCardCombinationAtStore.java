@@ -24,7 +24,7 @@ public class BcSmartspaceCardCombinationAtStore extends BcSmartspaceCardCombinat
     }
 
     @Override // com.google.android.systemui.smartspace.BcSmartspaceCardCombination,
-              // com.google.android.systemui.smartspace.BcSmartspaceCardSecondary
+    // com.google.android.systemui.smartspace.BcSmartspaceCardSecondary
     public final boolean setSmartspaceActions(
             SmartspaceTarget smartspaceTarget,
             BcSmartspaceDataPlugin.SmartspaceEventNotifier smartspaceEventNotifier,

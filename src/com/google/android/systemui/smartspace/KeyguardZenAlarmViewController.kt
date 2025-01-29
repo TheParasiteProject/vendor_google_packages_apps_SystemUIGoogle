@@ -25,7 +25,7 @@ constructor(
     val zenModeController: ZenModeController,
     val alarmManager: AlarmManager,
     val nextAlarmController: NextAlarmController,
-    val handler: Handler
+    val handler: Handler,
 ) {
     val alarmImage = context.getResources().getDrawable(R.drawable.ic_access_alarms_big, null)
     val smartspaceViews = LinkedHashSet<BcSmartspaceDataPlugin.SmartspaceView>()
@@ -64,7 +64,8 @@ constructor(
                         nextAlarmController.removeCallback(nextAlarmCallback)
                     }
                 }
-            })
+            }
+        )
         updateNextAlarm()
     }
 
@@ -98,7 +99,8 @@ constructor(
                 override fun onAlarm() {
                     showAlarm()
                 }
-            })
+            }
+        )
         val nextAlarm: Long = zenModeController.getNextAlarm()
         if (nextAlarm > 0) {
             val millis: Long = nextAlarm - TimeUnit.HOURS.toMillis(12L)
@@ -112,7 +114,8 @@ constructor(
                             showAlarm()
                         }
                     },
-                    handler)
+                    handler,
+                )
             }
         }
         showAlarm()
@@ -126,7 +129,8 @@ constructor(
                         if (DateFormat.is24HourFormat(context, ActivityManager.getCurrentUser()))
                             "HH:mm"
                         else "h:mm",
-                        nextAlarm)
+                        nextAlarm,
+                    )
                     .toString()
             for (smartspaceView in smartspaceViews) {
                 smartspaceView.setNextAlarm(alarmImage, obj)
