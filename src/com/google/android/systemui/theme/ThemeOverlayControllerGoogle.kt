@@ -17,6 +17,7 @@
 
 package com.google.android.systemui.theme
 
+import android.graphics.Color
 import android.app.ActivityManager
 import android.app.UiModeManager
 import android.app.WallpaperManager
@@ -25,6 +26,7 @@ import android.content.res.Resources
 import android.os.Handler
 import android.os.UserManager
 import android.util.Log
+import com.android.systemui.R
 import com.android.systemui.broadcast.BroadcastDispatcher
 import com.android.systemui.dagger.SysUISingleton
 import com.android.systemui.dagger.qualifiers.Background
@@ -61,14 +63,13 @@ constructor(
     userTracker: UserTracker,
     dumpManager: DumpManager,
     featureFlags: FeatureFlags,
-    @Main resources: Resources,
+    @param:Main private val resources: Resources,
     wakefulnessLifecycle: WakefulnessLifecycle,
     javaAdapter: JavaAdapter,
     keyguardTransitionInteractor: KeyguardTransitionInteractor,
     uiModeManager: UiModeManager,
     activityManager: ActivityManager,
     configurationController: ConfigurationController,
-    @param:Main private val mainResources: Resources,
     private val systemPropertiesHelper: SystemPropertiesHelper,
 ) :
     ThemeOverlayController(
@@ -91,7 +92,6 @@ constructor(
         keyguardTransitionInteractor,
         uiModeManager,
         activityManager,
-        configurationController,
     ) {
     init {
         configurationController.addCallback(
@@ -127,11 +127,23 @@ constructor(
     }
 
     private fun getBootColors(): IntArray {
-        return intArrayOf(
-            mainResources.getColor(android.R.color.system_accent3_100),
-            mainResources.getColor(android.R.color.system_accent1_300),
-            mainResources.getColor(android.R.color.system_accent2_500),
-            mainResources.getColor(android.R.color.system_accent1_100),
-        )
+        val accent = context.getColor(android.R.color.system_accent1_500)
+        return if (
+            Color.red(accent) == Color.green(accent) && Color.green(accent) == Color.blue(accent)
+        ) {
+            intArrayOf(
+                resources.getColor(R.color.super_g_primary_mono, context.getTheme()),
+                resources.getColor(R.color.super_g_tertiary_mono, context.getTheme()),
+                resources.getColor(R.color.super_g_quaternary_mono, context.getTheme()),
+                resources.getColor(R.color.super_g_secondary_mono, context.getTheme()),
+            )
+        } else {
+            intArrayOf(
+                resources.getColor(R.color.super_g_primary, context.getTheme()),
+                resources.getColor(R.color.super_g_tertiary, context.getTheme()),
+                resources.getColor(R.color.super_g_quaternary, context.getTheme()),
+                resources.getColor(R.color.super_g_secondary, context.getTheme()),
+            )
+        }
     }
 }
