@@ -35,6 +35,7 @@ import com.android.systemui.dagger.SysUISingleton;
 import com.android.systemui.display.ui.viewmodel.ConnectingDisplayViewModel;
 import com.android.systemui.dock.DockManager;
 import com.android.systemui.doze.DozeHost;
+import com.android.systemui.lineage.LineageModule;
 import com.android.systemui.media.dagger.MediaModule;
 import com.android.systemui.media.muteawait.MediaMuteAwaitConnectionCli;
 import com.android.systemui.media.nearby.NearbyMediaDevicesManager;
@@ -134,7 +135,8 @@ import javax.inject.Named;
             DreamlinerModule.class,
             ReverseChargingModule.class,
             AssistModule.class,
-            SystemUIGooglePolicyModule.class
+            SystemUIGooglePolicyModule.class,
+            LineageModule.class
         })
 public abstract class SystemUIGoogleModule {
 
