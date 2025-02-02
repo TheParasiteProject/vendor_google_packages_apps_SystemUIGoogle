@@ -46,7 +46,6 @@ android_library {
         "SystemUI-core",
         "tensorflowlite_java",
         "android.frameworks.stats-V1-java",
-        "vendor-pixelatoms-java",
         "smartspace-proto-java",
         "guava",
         "SystemUIGoogle-lib",
