@@ -118,7 +118,10 @@ android_app {
 
 java_library {
     name: "googlebattery-lib",
-    srcs: ["src/com/google/android/systemui/googlebattery/*.java"],
+    srcs: [
+        "src/com/google/android/systemui/googlebattery/*.java",
+        "src/com/google/android/systemui/power/PowerUtils.java",
+    ],
     static_libs: [
         "vendor.google.google_battery-hidl-java",
         "vendor.google.google_battery-V1-java",

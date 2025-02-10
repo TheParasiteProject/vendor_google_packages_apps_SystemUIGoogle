@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Binder;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.os.ServiceManager;
@@ -137,9 +138,9 @@ class BatteryDefenderNotification {
                     mContext.getString(R.string.defender_notify_resume_charge),
                     PowerUtils.createNormalChargingIntent(mContext, "PNW.defenderResumeCharging"));
         }
-        PowerUtils.overrideNotificationAppName(mContext, addAction, 17040783);
+        overrideNotificationAppName(mContext, addAction, 17040783);
         mNotificationManager.notifyAsUser(
-                "battery_defender", PowerUtils.NOTIFICATION_ID, addAction.build(), UserHandle.ALL);
+                "battery_defender", Constants.NOTIFICATION_ID, addAction.build(), UserHandle.ALL);
         if (!mDefenderEnabled) {
             mDefenderEnabled = true;
             if (mUiEventLogger == null) {
@@ -178,10 +179,10 @@ class BatteryDefenderNotification {
                                     mContext.getString(R.string.battery_health_notify_learn_more),
                                     PowerUtils.createHelpArticlePendingIntent(
                                             mContext, R.string.defender_notify_help_url));
-            PowerUtils.overrideNotificationAppName(mContext, addAction, 17040783);
+            overrideNotificationAppName(mContext, addAction, 17040783);
             mNotificationManager.notifyAsUser(
                     "battery_defender",
-                    PowerUtils.POST_NOTIFICATION_ID,
+                    Constants.POST_NOTIFICATION_ID,
                     addAction.build(),
                     UserHandle.ALL);
             mPostNotificationVisible = true;
@@ -198,7 +199,7 @@ class BatteryDefenderNotification {
         Log.d(TAG, "resume charging: " + batteryDefenderEvent.mId);
         executeBypassActionWithAsync();
         mNotificationManager.cancelAsUser(
-                "battery_defender", PowerUtils.NOTIFICATION_ID, UserHandle.ALL);
+                "battery_defender", Constants.NOTIFICATION_ID, UserHandle.ALL);
         clearDefenderStartRecord();
     }
 
@@ -278,14 +279,14 @@ class BatteryDefenderNotification {
     private void cancelNotification() {
         mDefenderEnabled = false;
         mNotificationManager.cancelAsUser(
-                "battery_defender", PowerUtils.NOTIFICATION_ID, UserHandle.ALL);
+                "battery_defender", Constants.NOTIFICATION_ID, UserHandle.ALL);
     }
 
     private void cancelPostNotification() {
         mPostNotificationVisible = false;
         clearDefenderStartRecord();
         mNotificationManager.cancelAsUser(
-                "battery_defender", PowerUtils.POST_NOTIFICATION_ID, UserHandle.ALL);
+                "battery_defender", Constants.POST_NOTIFICATION_ID, UserHandle.ALL);
     }
 
     private void clearDefenderStartRecord() {
@@ -306,5 +307,12 @@ class BatteryDefenderNotification {
         public int getId() {
             return mId;
         }
+    }
+
+    public static void overrideNotificationAppName(
+            Context context, NotificationCompat.Builder builder, int i) {
+        Bundle bundle = new Bundle();
+        bundle.putString("android.substName", context.getString(i));
+        builder.addExtras(bundle);
     }
 }

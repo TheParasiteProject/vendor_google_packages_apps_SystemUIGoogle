@@ -20,6 +20,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.UserHandle;
@@ -145,10 +146,10 @@ class AdaptiveChargingNotification {
                                             R.string.adaptive_charging_notify_turn_off_once),
                                     PowerUtils.createNormalChargingIntent(
                                             mContext, "PNW.acChargeNormally"));
-            PowerUtils.overrideNotificationAppName(mContext, addAction, 17039652);
+            overrideNotificationAppName(mContext, addAction, 17039652);
             mNotificationManager.notifyAsUser(
                     "adaptive_charging",
-                    PowerUtils.AC_NOTIFICATION_ID,
+                    Constants.AC_NOTIFICATION_ID,
                     addAction.build(),
                     UserHandle.ALL);
             mWasActive = true;
@@ -160,7 +161,14 @@ class AdaptiveChargingNotification {
             return;
         }
         mNotificationManager.cancelAsUser(
-                "adaptive_charging", PowerUtils.AC_NOTIFICATION_ID, UserHandle.ALL);
+                "adaptive_charging", Constants.AC_NOTIFICATION_ID, UserHandle.ALL);
         mWasActive = false;
+    }
+
+    public static void overrideNotificationAppName(
+            Context context, NotificationCompat.Builder builder, int i) {
+        Bundle bundle = new Bundle();
+        bundle.putString("android.substName", context.getString(i));
+        builder.addExtras(bundle);
     }
 }
